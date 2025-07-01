@@ -1,63 +1,152 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19877542&assignment_repo_type=AssignmentRepo)
-# Express.js RESTful API Assignment
+# 📦 Week 2: Express.js RESTful API – Product Management
 
-This assignment focuses on building a RESTful API using Express.js, implementing proper routing, middleware, and error handling.
+This project is a RESTful API built with **Express.js** for managing a collection of products. It includes standard CRUD operations, middleware for logging and authentication, validation, advanced filtering, pagination, and error handling.
 
-## Assignment Overview
+## 🚀 Features
 
-You will:
-1. Set up an Express.js server
-2. Create RESTful API routes for a product resource
-3. Implement custom middleware for logging, authentication, and validation
-4. Add comprehensive error handling
-5. Develop advanced features like filtering, pagination, and search
+- Full CRUD operations for product resources
+- Middleware:
+  - Custom logger (method, URL, timestamp)
+  - API key authentication
+  - Request validation
+- Advanced API features:
+  - Filter by category
+  - Pagination support
+  - Search by name
+  - Product statistics (count by category)
+- Global error handling with custom error classes
 
-## Getting Started
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install dependencies:
-   ```
+## 🛠️ Installation & Setup
+
+1. **Clone the repository**
+   bash
+   git clone <your-repo-url>
+   cd week-2-express-api-assignment
+
+
+2. **Install dependencies**
+
+   bash
    npm install
-   ```
-4. Run the server:
-   ```
+   
+
+3. **Create a `.env` file**
+
+   PORT=your choice
+   API_KEY= your choice
+   
+4. **Start the server**
+
+   bash
    npm start
-   ```
+   
 
-## Files Included
+   Server will run at: `http://localhost:3000`
 
-- `Week2-Assignment.md`: Detailed assignment instructions
-- `server.js`: Starter Express.js server file
-- `.env.example`: Example environment variables file
+## 📄 API Endpoints
 
-## Requirements
+All endpoints require a valid API key passed via headers:
 
-- Node.js (v18 or higher)
-- npm or yarn
-- Postman, Insomnia, or curl for API testing
+**Header Example:**
 
-## API Endpoints
+x-api-key: mysecretkey123
 
-The API will have the following endpoints:
+### 🔍 GET /api/products
 
-- `GET /api/products`: Get all products
-- `GET /api/products/:id`: Get a specific product
-- `POST /api/products`: Create a new product
-- `PUT /api/products/:id`: Update a product
-- `DELETE /api/products/:id`: Delete a product
+Returns all products. Supports optional query parameters:
 
-## Submission
+* `category` – filter by category
+* `page` – current page (default 1)
+* `limit` – items per page (default 10)
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
+**Example:**
 
-1. Complete all the required API endpoints
-2. Implement the middleware and error handling
-3. Document your API in the README.md
-4. Include examples of requests and responses
+GET /api/products?category=electronics&page=1&limit=5
 
-## Resources
+### 📦 GET /api/products/\:id
 
-- [Express.js Documentation](https://expressjs.com/)
-- [RESTful API Design Best Practices](https://restfulapi.net/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) 
+Get a specific product by its ID.
+
+GET /api/products/1
+
+
+### ➕ POST /api/products
+
+Create a new product.
+**Required fields:** `name`, `description`, `price`, `category`, `inStock`
+
+**Body:**
+
+json
+{
+  "name": "Headphones",
+  "description": "Noise-cancelling wireless headphones",
+  "price": 199,
+  "category": "electronics",
+  "inStock": true
+}
+
+### 🛠️ PUT /api/products/\:id
+
+Update a product by its ID.
+**Body:** Provide any field(s) to update.
+
+json
+{
+  "price": 999,
+  "inStock": false
+}
+
+
+### 🗑️ DELETE /api/products/\:id
+
+Delete a product by ID.
+
+DELETE /api/products/3
+
+
+### 🔎 GET /api/products/search?name=term
+
+Search products by name (case-insensitive).
+
+GET /api/products/search?name=laptop
+
+### 📊 GET /api/products/stats
+
+Returns total product count by category.
+
+GET /api/products/stats
+
+
+## 🔒 Environment Variables
+
+Use a `.env` file to store config:
+
+| Variable  | Description            |
+| --------- | ---------------------- |
+| `PORT`    | Port to run the server |
+| `API_KEY` | API key for access     |
+
+
+## 🧪 Testing
+
+Use [Postman](https://www.postman.com/) or [Insomnia](https://insomnia.rest/) to test all endpoints.
+Ensure to include the `x-api-key` header in each request.
+
+
+## 📁 Project Structure
+
+📁 week-2-express-api-assignment
+│
+├── server.js
+├── .env
+├── .env.example
+├── package.json
+├── README.md
+└── node_modules/
+
+
+## ✅ Sample Test Requests
+
+Check the Images section in this repository or refer to the documentation above to test each feature using Postman.
